@@ -6,9 +6,6 @@ services:
         build: ./webrecorder
         command: ulimit -n 65536; uwsgi --need-app /code/apps/apiapp.ini
 
-        env_file:
-            - ./wr.env
-
         depends_on:
             - warcserver
             - recorder
