@@ -28,9 +28,6 @@ services:
         build:
             context: ./frontend
 
-        env_file:
-            - ./wr.env
-
         command: sh run.sh
 
         depends_on:
@@ -63,9 +60,6 @@ services:
         build: ./webrecorder
         command: ulimit -n 65536; uwsgi --need-app /code/apps/rec.ini
 
-        env_file:
-            - ./wr.env
-
         depends_on:
             - warcserver
             - redis
@@ -80,9 +74,6 @@ services:
         container_name: warcserver
         build: ./webrecorder
         command: ulimit -n 65536; uwsgi --need-app /code/apps/load.ini
-
-        env_file:
-            - ./wr.env
 
         depends_on:
             - redis
@@ -125,15 +116,9 @@ services:
         networks:
             - browsers
 
-        env_file:
-            - ./wr.env
-
     shepherd:
         container_name: shepherd
         image: oldwebtoday/shepherd:1.2.0
-
-        env_file:
-            - ./wr.env
 
         environment:
             - SCREEN_WIDTH=1280
@@ -201,9 +186,6 @@ services:
         container_name: redis
         build: ./redis
 
-        env_file:
-            - ./wr.env
-
         volumes:
             - ./data:/data
 
@@ -216,7 +198,6 @@ services:
         environment:
             - "maildomain=localhost"
             - "smtp_user=test:archive"
-
 
 networks:
     default:
